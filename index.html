@@ -1,42 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="style.css">
   <title>Frontend Mentor | Intro component with sign up form</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
 </head>
+
 <body>
+  <div class="container">
+    <div class="wrap-left">
+      <div class="txt">
+        <h1>Learn to code by watching others</h1>
+        <p>
+          See how experienced developers solve problems in real-time. Watching scripted tutorials is great,
+          but understanding how developers think is invaluable.
+        </p>
+      </div>
+    </div>
+    <div class="wrap-right">
+      <div class="try-it">
+        <p><span>Try it free 7 days</span> then $20/mo. thereafter</p>
+      </div>
+      <form class="form">
+        <!-- action="#" method="post" target="_self"> -->
+        <div class="firstName">
+          <input type="text" placeholder="First Name">
+          <img src="./images/icon-error.svg" alt="icon-error" class="icon-error">
+          <p class="error-msg">First Name cannot be empty</p>
+        </div>
+        <div class="lastName">
+          <input type="text" placeholder="Last Name">
+          <img src="./images/icon-error.svg" alt="icon-error" class="icon-error">
+          <p class="error-msg">Last Name cannot be empty</p>
+        </div>
+        <div class="email">
+          <input type="email" placeholder="Email Address">
+          <img src="./images/icon-error.svg" alt="icon-error" class="icon-error">
+          <p class="error-msg">Looks like this is not an email</p>
+        </div>
+        <div class="password">
+          <input type="password" placeholder="Password">
+          <img src="./images/icon-error.svg" alt="icon-error" class="icon-error">
+          <p class="error-msg">Password cannot be empty</p>
+        </div>
+        <input type="submit" class="submit" value="Claim your free trial">
+        <p>By clicking the button, you are agreeing to our <span>Terms and Services</span></p>
+      </form>
+    </div>
+    <footer>
+      <p class="attribution">
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+        Coded by <a href="#">Your Name Here</a>.
+      </p>
+    </footer>
+  </div>
+  <script>
+    const form = document.querySelector('.form');
+    const firstName = document.querySelector('.firstName input');
+    const lastName = document.querySelector('.lastName input');
+    const email = document.querySelector('.email input');
+    const password = document.querySelector('.password input');
+    // let submitChecked = false;
 
-  Learn to code by watching others
+    function checkSubmit(e) {
+      e.preventDefault();
 
-  See how experienced developers solve problems in real-time. Watching scripted tutorials is great, 
-  but understanding how developers think is invaluable. 
+      checkFirstName();
+      checkLastName();
+      checkEmail();
+      checkPassword();
+      // if(!checkFirstName()) return;
+      // if(!checkLastName()) return;
+      // if(!checkEmail()) return;
+      // if(!checkPassword()) return;
 
-  Try it free 7 days then $20/mo. thereafter
 
-  First Name 
-  Last Name 
-  Email Address
-  Password
+    }
 
-  Claim your free trial 
+    function checkFirstName() {
+      const re = /[A-Za-z]+/g;
+      const result = Array.from(firstName.value).map(item => item.match(re));//array
+      if (firstName.value == '' || result.includes(null)) {
+        firstName.parentNode.classList.add('hasError');
+        firstName.value = '';
+        return false;
+      }
+      if (!result.includes(null) && firstName.value !== '') {
+        firstName.parentNode.classList.remove('hasError');
+        // enterKey works like TAB
+        // document.addEventListener('keydown', toNextInput);
+        return true;
+      }
+    };
 
-  By clicking the button, you are agreeing to our Terms and Services
-  
-  <footer>
-    <p class="attribution">
-      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-      Coded by <a href="#">Your Name Here</a>.
-    </p>
-  </footer>
+
+    function checkLastName() {
+      const re = /[A-Za-z]+/g;
+      const result = Array.from(lastName.value).map(item => item.match(re));//array
+
+      if (lastName.value === '' || result.includes(null)) {
+        lastName.parentNode.classList.add('hasError');
+        lastName.value = '';
+        return false;
+      }
+      if (lastName.value !== '' && !result.includes(null)) {
+        lastName.parentNode.classList.remove('hasError');
+        // enterKey works like TAB
+        // document.addEventListener('keyup', toNextInput);
+        return true;
+      }
+    };
+
+    function checkEmail() {
+      const re = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+      const result = email.value.match(re);//array
+console.log(result);
+
+      // if(result.length === 0)return;
+      if (email.value == '' || result.includes(null)) {
+        email.parentNode.classList.add('hasError');
+        email.value = '';
+        email.setAttribute("placeholder", "email@example/com");
+        return false;
+      }
+      if (email.value !== '' && !result.includes(null)) {
+        email.parentNode.classList.remove('hasError');
+        // enterKey works like TAB
+        // document.addEventListener('keyup', toNextInput);
+        return true;
+
+    }}
+    function checkPassword() {
+      const re = /[\w]+/g;
+      const result = Array.from(password.value).map(item => item.match(re));//array
+console.log(result);
+
+      if (password.value == '' || result.includes(null)) {
+        password.parentNode.classList.add('hasError');
+        password.value = '';
+        return false;
+      }
+      if (password.value !== '' && !result.includes(null)) {
+        password.parentNode.classList.remove('hasError');
+        // enterKey works like TAB
+        // document.addEventListener('keyup', toNextInput);
+        return true;
+      }
+    }
+
+
+
+
+
+
+
+
+    // function toNextInput(e) {
+    //   if (e.keyCode === 13 && e.target.nodeName === 'INPUT') {
+    //     const form = e.target.form;
+    //     const index = Array.prototype.indexOf.call(form, e.target);
+    //     // if input is submit, finish the function
+    //     if (index === form.length - 1) return;
+    //     // or do the function
+    //     form.elements[index + 1].focus();
+    //     e.preventDefault();
+    //   }
+
+    // }
+
+
+
+
+
+
+    form.addEventListener('submit', checkSubmit)
+  </script>
+
 </body>
+
 </html>
