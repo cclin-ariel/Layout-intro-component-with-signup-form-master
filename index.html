@@ -26,8 +26,7 @@
       <div class="try-it">
         <p><span>Try it free 7 days</span> then $20/mo. thereafter</p>
       </div>
-      <form class="form">
-        <!-- action="#" method="post" target="_self"> -->
+      <form class="form" action="#" method="post" target="_self">
         <div class="firstName">
           <input type="text" placeholder="First Name">
           <img src="./images/icon-error.svg" alt="icon-error" class="icon-error">
@@ -69,18 +68,11 @@
 
     function checkSubmit(e) {
       e.preventDefault();
-
       checkFirstName();
       checkLastName();
       checkEmail();
       checkPassword();
-      // if(!checkFirstName()) return;
-      // if(!checkLastName()) return;
-      // if(!checkEmail()) return;
-      // if(!checkPassword()) return;
-
-
-    }
+    };
 
     function checkFirstName() {
       const re = /[A-Za-z]+/g;
@@ -88,57 +80,40 @@
       if (firstName.value == '' || result.includes(null)) {
         firstName.parentNode.classList.add('hasError');
         firstName.value = '';
-        return false;
       }
       if (!result.includes(null) && firstName.value !== '') {
         firstName.parentNode.classList.remove('hasError');
-        // enterKey works like TAB
-        // document.addEventListener('keydown', toNextInput);
-        return true;
       }
     };
-
 
     function checkLastName() {
       const re = /[A-Za-z]+/g;
       const result = Array.from(lastName.value).map(item => item.match(re));//array
-
       if (lastName.value === '' || result.includes(null)) {
         lastName.parentNode.classList.add('hasError');
         lastName.value = '';
-        return false;
       }
       if (lastName.value !== '' && !result.includes(null)) {
         lastName.parentNode.classList.remove('hasError');
-        // enterKey works like TAB
-        // document.addEventListener('keyup', toNextInput);
-        return true;
       }
     };
 
     function checkEmail() {
       const re = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
       const result = email.value.match(re);//array
-console.log(result);
-
-      // if(result.length === 0)return;
       if (email.value == '' || result.includes(null)) {
         email.parentNode.classList.add('hasError');
         email.value = '';
         email.setAttribute("placeholder", "email@example/com");
-        return false;
       }
       if (email.value !== '' && !result.includes(null)) {
         email.parentNode.classList.remove('hasError');
-        // enterKey works like TAB
-        // document.addEventListener('keyup', toNextInput);
-        return true;
+      }
+    };
 
-    }}
     function checkPassword() {
       const re = /[\w]+/g;
       const result = Array.from(password.value).map(item => item.match(re));//array
-console.log(result);
 
       if (password.value == '' || result.includes(null)) {
         password.parentNode.classList.add('hasError');
@@ -147,38 +122,12 @@ console.log(result);
       }
       if (password.value !== '' && !result.includes(null)) {
         password.parentNode.classList.remove('hasError');
-        // enterKey works like TAB
-        // document.addEventListener('keyup', toNextInput);
         return true;
       }
-    }
+    };
 
-
-
-
-
-
-
-
-    // function toNextInput(e) {
-    //   if (e.keyCode === 13 && e.target.nodeName === 'INPUT') {
-    //     const form = e.target.form;
-    //     const index = Array.prototype.indexOf.call(form, e.target);
-    //     // if input is submit, finish the function
-    //     if (index === form.length - 1) return;
-    //     // or do the function
-    //     form.elements[index + 1].focus();
-    //     e.preventDefault();
-    //   }
-
-    // }
-
-
-
-
-
-
-    form.addEventListener('submit', checkSubmit)
+    form.addEventListener('submit', checkSubmit);
+    
   </script>
 
 </body>
